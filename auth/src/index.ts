@@ -17,7 +17,7 @@ app.use(json());
 app.use(
   cookieSession({
     signed: false,
-    secure: true, // must be on https connection
+    secure: true, // must be on https connection ,
   })
 );
 
