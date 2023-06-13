@@ -16,8 +16,8 @@ interface PermitModel extends mongoose.Model<PermitDoc> {
 
 const permitSchema = new mongoose.Schema(
   {
-    payment: {
-      type: String,
+    payload: {
+      type: Object,
       required: true,
     },
     userId: {
