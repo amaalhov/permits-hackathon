@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: permits-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: permits
+  template:
+    metadata:
+      labels:
+        app: permits
+    spec:
+      containers:
+        - name: permits
+          image: amaalhov/permits
+          env:
+            - name: MONGO_URI
+              value: "mongodb://auth-mongo-srv:27017/permits"
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: permits-srv
+spec:
+  selector:
+    app: permits
+  ports:
+    - name: permits
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
