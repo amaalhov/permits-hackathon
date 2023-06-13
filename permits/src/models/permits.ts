@@ -1,14 +1,12 @@
 import mongoose from "mongoose";
 
 interface PermitAttrs {
-  title: string;
-  price: number;
+  payload: object;
   userId: string;
 }
 
 interface PermitDoc extends mongoose.Document {
-  title: string;
-  price: number;
+  payload: object;
   userId: string;
 }
 
@@ -18,12 +16,8 @@ interface PermitModel extends mongoose.Model<PermitDoc> {
 
 const permitSchema = new mongoose.Schema(
   {
-    title: {
+    payment: {
       type: String,
-      required: true,
-    },
-    price: {
-      type: Number,
       required: true,
     },
     userId: {

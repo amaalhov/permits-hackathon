@@ -8,19 +8,13 @@ const router = express.Router();
 router.post(
   "/api/permits",
   requireAuth,
-  [
-    body("title").not().isEmpty().withMessage("Title is required"),
-    body("price")
-      .isFloat({ gt: 0 })
-      .withMessage("Price must be greater than 0"),
-  ],
+  [body("payload").not().isEmpty().withMessage("Payload is required")],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { title, price } = req.body;
+    const { payload } = req.body;
 
     const permit = Permit.build({
-      title,
-      price,
+      payload,
       userId: req.currentUser!.id,
     });
     await permit.save();
