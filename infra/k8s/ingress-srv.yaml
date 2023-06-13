@@ -7,13 +7,22 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
-    - host: https://178.128.137.82.sslip.io
-      http:
-        paths:
-          - path: /api/users/?(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: auth-srv
-                port:
-                  number: 3000
+    #- host: https://178.128.137.82.sslip.io
+    http:
+      paths:
+        - path: /api/users/?(.*)
+          pathType: Prefix
+          backend:
+            service:
+              name: auth-srv
+              port:
+                number: 3000
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+    - name: https
+      port: 443
+      targetPort: http
+  externalIPs:
+    - 178.128.137.82
